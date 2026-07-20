@@ -130,18 +130,18 @@ export default function ProductScene() {
               animate="center"
               exit="exit"
               transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              className={`pointer-events-none absolute z-20 w-72 ${
+              className={`pointer-events-none absolute z-20 w-64 max-w-[65vw] sm:w-72 ${
                 isLeft ? 'left-4 sm:left-12 lg:left-20' : 'right-4 sm:right-12 lg:right-20'
               } top-1/2 -translate-y-1/2 will-change-transform`}
             >
-              <div className="rounded-2xl border border-white/10 bg-black/60 p-6 backdrop-blur-xl">
-                <span className="mb-2 block text-xs font-medium uppercase tracking-[0.2em] text-gold-400">
+              <div className="rounded-2xl border border-white/10 bg-black/60 p-4 sm:p-6 backdrop-blur-xl">
+                <span className="mb-1 block text-[10px] font-medium uppercase tracking-[0.2em] text-gold-400 sm:mb-2 sm:text-xs">
                   {isLeft ? 'Novidade' : 'Destaque'}
                 </span>
-                <h3 className="mb-2 text-xl font-bold text-white">
+                <h3 className="mb-1.5 text-sm font-bold text-white sm:mb-2 sm:text-xl">
                   {cardContent[cardIndex].title}
                 </h3>
-                <p className="text-sm leading-relaxed text-neutral-300">
+                <p className="text-[11px] leading-relaxed text-neutral-300 sm:text-sm">
                   {cardContent[cardIndex].copy}
                 </p>
               </div>

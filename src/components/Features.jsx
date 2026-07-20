@@ -79,11 +79,11 @@ export default function Features() {
               whileInView="show"
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.7, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="group rounded-2xl border border-white/10 bg-card p-7 transition-all duration-300 hover:border-gold-400/30 hover:shadow-[0_0_30px_-6px_rgba(212,168,52,0.15)]"
+              className="group rounded-2xl border border-white/10 bg-card p-5 sm:p-7 transition-all duration-300 hover:border-gold-400/30 hover:shadow-[0_0_30px_-6px_rgba(212,168,52,0.15)]"
             >
-              <div className="mb-5 h-10 w-10 text-neutral-200 transition-colors duration-300 group-hover:text-gold-400">{f.icon}</div>
-              <h3 className="mb-2 text-lg font-semibold text-white">{f.title}</h3>
-              <p className="text-sm leading-relaxed text-neutral-400">{f.copy}</p>
+              <div className="mb-4 h-8 w-8 sm:mb-5 sm:h-10 sm:w-10 text-neutral-200 transition-colors duration-300 group-hover:text-gold-400">{f.icon}</div>
+              <h3 className="mb-1.5 text-base font-semibold text-white sm:mb-2 sm:text-lg">{f.title}</h3>
+              <p className="text-xs leading-relaxed text-neutral-400 sm:text-sm">{f.copy}</p>
             </motion.div>
           ))}
         </div>

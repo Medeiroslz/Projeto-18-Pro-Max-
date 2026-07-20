@@ -7,7 +7,7 @@ const WHATSAPP_LINK =
 
 export default function CTA() {
   return (
-    <section className="relative flex min-h-[80vh] flex-col items-center justify-center px-6 py-24 text-center">
+    <section className="relative flex min-h-[60vh] sm:min-h-[80vh] flex-col items-center justify-center px-6 py-16 sm:py-24 text-center">
       {/* overlay gradient dourado no final da pagina */}
       <div className="pointer-events-none absolute inset-0 bg-gold-gradient-bottom" />
 
@@ -25,7 +25,7 @@ export default function CTA() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.6 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="relative font-display text-3xl font-bold tracking-tightest text-white sm:text-4xl md:text-5xl"
+        className="relative font-display text-2xl font-bold tracking-tightest text-white sm:text-4xl md:text-5xl"
       >
         Garanta o seu
       </motion.h2>
@@ -51,7 +51,7 @@ export default function CTA() {
         transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.98 }}
-        className="relative mt-10 inline-flex items-center gap-2 rounded-full border-2 border-white/80 bg-transparent px-10 py-4 text-base font-semibold text-white transition-all duration-300 hover:bg-white hover:text-black hover:shadow-[0_0_40px_8px_rgba(255,255,255,0.2)]"
+        className="relative mt-8 sm:mt-10 inline-flex items-center gap-2 rounded-full border-2 border-white/80 bg-transparent px-6 py-3 sm:px-10 sm:py-4 text-sm sm:text-base font-semibold text-white transition-all duration-300 hover:bg-white hover:text-black hover:shadow-[0_0_40px_8px_rgba(255,255,255,0.2)]"
       >
         Tenho interesse
       </motion.a>

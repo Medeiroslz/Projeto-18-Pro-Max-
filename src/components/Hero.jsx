@@ -25,7 +25,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-        className="relative max-w-5xl font-display text-[36px] font-bold leading-[1.05] tracking-tightest text-white sm:text-[52px] md:text-[68px] lg:text-[84px]"
+        className="relative max-w-5xl font-display text-[28px] font-bold leading-[1.05] tracking-tightest text-white sm:text-[52px] md:text-[68px] lg:text-[84px]"
       >
         Conheça o novo iPhone&nbsp;18
       </motion.h1>
