@@ -1,9 +1,10 @@
-import { lazy, Suspense } from 'react'
+import { useState, lazy, Suspense } from 'react'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Features from './components/Features'
 import CTA from './components/CTA'
 import Footer from './components/Footer'
+import LoadingScreen from './components/LoadingScreen'
 
 // The 3D scene pulls in three.js + the GLTF model, so it's split into its
 // own chunk and only loaded once the browser is idle after first paint.
@@ -18,6 +19,12 @@ function ProductSceneFallback() {
 }
 
 export default function App() {
+  const [loaded, setLoaded] = useState(false)
+
+  if (!loaded) {
+    return <LoadingScreen onFinish={() => setLoaded(true)} />
+  }
+
   return (
     <>
       <Header />
