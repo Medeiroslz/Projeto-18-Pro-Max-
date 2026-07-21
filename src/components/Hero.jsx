@@ -88,7 +88,7 @@ export default function Hero() {
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         className="relative mb-4 text-sm font-medium uppercase tracking-[0.3em] text-white sm:text-base"
       >
-        O próximo passo evoluiu
+        
       </motion.p>
 
       {/* ── Título com parallax ──────────────────────────────────────── */}
