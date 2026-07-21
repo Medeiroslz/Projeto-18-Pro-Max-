@@ -1,4 +1,4 @@
-/Users/guilhermemedeiros/Desktop/Captura de Tela 2026-07-20 às 13.33.58.pngimport { motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 export default function Header() {
   return (

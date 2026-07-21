@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# Projeto-18-Pro-Max-
-=======
 # iPhone 18 — Landing Page
 
 Landing page premium estilo Apple para o lançamento do iPhone 18, com React + Tailwind CSS + React Three Fiber (Three.js).
@@ -23,31 +20,17 @@ npm run preview
 
 ## Antes de publicar
 
-1. **Número de WhatsApp** — abra `src/components/CTA.jsx` e troque
-   `55SEUNUMEROAQUI` pelo número real, com DDI + DDD, sem espaços/símbolos
-   (ex.: `5551999998888`).
-2. **Suporte MagSafe** — como não havia um modelo 3D dele, foi feito de
-   forma procedural (geometrias simples em Three.js) em
-   `src/components/DockAccessories.jsx`. Se depois você tiver um `.glb`
-   real para o suporte, é só trocar esse componente para usar `useGLTF` do
-   mesmo jeito que `IPhoneModel.jsx` / `WatchModel.jsx`.
+**Número de WhatsApp** — abra `src/components/CTA.jsx` e troque
+`55SEUNUMEROAQUI` pelo número real, com DDI + DDD, sem espaços/símbolos
+(ex.: `5551999998888`).
 
-## Modelos 3D
+## Modelo 3D
 
-Os dois modelos enviados já estão em `public/models/` e foram otimizados
-com `@gltf-transform` (texturas redimensionadas para 1024px + convertidas
-para WebP, geometria comprimida com Meshopt) para carregar rápido:
-
-| Arquivo | Original | Otimizado |
-|---|---|---|
-| `iphone-17-pro-max-silver.glb` | 5.24 MB | 1.96 MB |
-| `apple_watch_ultra_2.glb` | 15.34 MB | 2.81 MB |
-
-Cada modelo é recentralizado e escalado automaticamente em tempo de
-execução (`src/lib/normalizeModel.js`), então funcionam mesmo tendo sido
-modelados em escalas/pivôs diferentes. Se algum dos dois arquivos não
-carregar (404, erro de rede etc.), a Seção 2 cai automaticamente para um
-placeholder geométrico simples — o site nunca quebra por causa disso.
+O modelo do iPhone 18 está em `public/models/iphone-18-pro-max.glb`.
+Ele é recentralizado e escalado automaticamente em tempo de execução
+(`src/lib/normalizeModel.js`). Se o arquivo não carregar (404, erro de rede
+etc.), a Seção 2 cai automaticamente para um placeholder geométrico simples
+— o site nunca quebra por causa disso.
 
 ## Estrutura
 
@@ -57,12 +40,10 @@ src/
     Hero.jsx              Seção 1 — hero em tela cheia
     ProductScene.jsx       Seção 2 — container sticky 400vh com o Canvas 3D
     IPhoneModel.jsx         modelo GLTF real do iPhone, animado pelo scroll
-    WatchModel.jsx          modelo GLTF real do Apple Watch, animado pelo scroll
-    DockAccessories.jsx     suporte MagSafe (procedural, sem modelo enviado)
     PlaceholderPhone.jsx    placeholder exibido se o .glb do iPhone não carregar
-    PlaceholderWatch.jsx    placeholder exibido se o .glb do Watch não carregar
-    ModelErrorBoundary.jsx  captura erro de carregamento de cada modelo
+    ModelErrorBoundary.jsx  captura erro de carregamento do modelo
     Features.jsx           Seção 3 — grid de diferenciais com scroll reveal
+    Header.jsx             Header fixo com logo
     CTA.jsx                Seção 4 — chamada final + botão do WhatsApp
   hooks/
     useSectionScrollProgress.js   calcula o progresso do scroll (0→1) de uma seção alta, sem re-render do React a cada frame
@@ -77,14 +58,11 @@ resultado final, então vale a pena abrir `npm run dev` e olhar a Seção 2 na
 prática. Os pontos mais prováveis de precisar de ajuste fino, se algo não
 estiver perfeito:
 
-- **Ângulo do Watch ao pousar** — em `WatchModel.jsx`, o `g.rotation.y` no
-  fim do `useFrame` controla o ângulo final dele ao lado do suporte.
-- **Posição relativa dos dois produtos** — os valores de `position.x` em
-  `IPhoneModel.jsx` e `WatchModel.jsx` (fase de "dock") controlam o quanto
-  cada um se afasta do centro.
-- **Tamanho do Watch** — `TARGET_SIZE` no topo de `WatchModel.jsx` normaliza
-  pela maior dimensão do modelo (caixa + pulseira), então aumentar/diminuir
-  esse número deixa o Watch maior/menor perto do iPhone.
+- **Ângulo do iPhone no zoom** — em `IPhoneModel.jsx`, o `g.rotation.y` e
+  `g.rotation.x` no fim do `useFrame` controlam o ângulo final do aparelho
+  mostrando o módulo da câmera.
+- **Zoom da câmera** — o `g.scale.setScalar(THREE.MathUtils.lerp(1, 1.8, eased))`
+  controla o quanto o iPhone aproxima. Ajuste o `1.8` para mais ou menos zoom.
 
 ## Notas técnicas
 
@@ -97,4 +75,4 @@ estiver perfeito:
 - Os cards da Seção 3 usam `whileInView` do Framer Motion (fade + slide-up)
   conforme entram na viewport.
 - `prefers-reduced-motion` é respeitado globalmente em `index.css`.
->>>>>>> 4678b43 (feat: iPhone 18 landing page com 3D, scroll sync cards e zoom na câmera)
+

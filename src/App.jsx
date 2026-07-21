@@ -3,6 +3,7 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import Features from './components/Features'
 import CTA from './components/CTA'
+import Footer from './components/Footer'
 
 // The 3D scene pulls in three.js + the GLTF model, so it's split into its
 // own chunk and only loaded once the browser is idle after first paint.
@@ -28,6 +29,7 @@ export default function App() {
         <Features />
         <CTA />
       </main>
+      <Footer />
     </>
   )
 }

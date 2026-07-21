@@ -1,4 +1,10 @@
-import { motion } from 'framer-motion'
+import { useCallback, useRef } from 'react'
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from 'framer-motion'
 
 const features = [
   {
@@ -56,6 +62,102 @@ const cardVariants = {
   show: { opacity: 1, y: 0 },
 }
 
+/* ── Card individual com tilt 3D + spotlight + ícone animado ─────────── */
+function FeatureCard({ feature, index }) {
+  const cardRef = useRef(null)
+
+// Tilt 3D (com spring suave embutido no motion value)
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+  const smoothX = useSpring(x, { stiffness: 120, damping: 12, mass: 0.5 })
+  const smoothY = useSpring(y, { stiffness: 120, damping: 12, mass: 0.5 })
+  const rotateX = useTransform(smoothY, [-0.5, 0.5], [8, -8])
+  const rotateY = useTransform(smoothX, [-0.5, 0.5], [-8, 8])
+
+  // Ícone animation
+  const iconScale = useMotionValue(1)
+  const iconRotate = useMotionValue(0)
+
+  const handleMouseMove = useCallback(
+    (e) => {
+      const el = cardRef.current
+      if (!el) return
+      const rect = el.getBoundingClientRect()
+
+      // Spotlight position (percent)
+      const mx = ((e.clientX - rect.left) / rect.width) * 100
+      const my = ((e.clientY - rect.top) / rect.height) * 100
+      el.style.setProperty('--mx', `${mx}%`)
+      el.style.setProperty('--my', `${my}%`)
+
+      // Tilt (normalized -0.5 .. 0.5)
+      const nx = (e.clientX - rect.left) / rect.width - 0.5
+      const ny = (e.clientY - rect.top) / rect.height - 0.5
+      x.set(nx)
+      y.set(ny)
+    },
+    [x, y],
+  )
+
+  const handleMouseEnter = useCallback(() => {
+    iconScale.set(1.1)
+    iconRotate.set(5)
+  }, [iconScale, iconRotate])
+
+  const handleMouseLeave = useCallback(() => {
+    const el = cardRef.current
+    if (!el) return
+    el.style.setProperty('--mx', '50%')
+    el.style.setProperty('--my', '50%')
+    x.set(0)
+    y.set(0)
+    iconScale.set(1)
+    iconRotate.set(0)
+  }, [x, y, iconScale, iconRotate])
+
+  return (
+    <motion.div
+      ref={cardRef}
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.4 }}
+      transition={{ duration: 0.7, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY }}
+      className="group relative rounded-2xl border border-white/10 bg-card p-5 sm:p-7 transition-colors duration-300 hover:border-gold-400/30 hover:shadow-[0_0_30px_-6px_rgba(212,168,52,0.15)]"
+    >
+      {/* Spotlight interno (dourado, segue o cursor) */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0 rounded-2xl will-change-[background]"
+        style={{
+          background:
+            'radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(212,168,52,0.10) 0%, rgba(26,26,26,0) 60%)',
+        }}
+      />
+
+      {/* Ícone com micro-interação */}
+      <motion.div
+        className="relative z-10 mb-4 h-8 w-8 sm:mb-5 sm:h-10 sm:w-10 text-neutral-200 transition-colors duration-300 group-hover:text-gold-400"
+        style={{ scale: iconScale, rotate: iconRotate }}
+        transition={{ type: 'spring', stiffness: 200, damping: 14 }}
+      >
+        {feature.icon}
+      </motion.div>
+
+      <h3 className="relative z-10 mb-1.5 text-base font-semibold text-white sm:mb-2 sm:text-lg">
+        {feature.title}
+      </h3>
+      <p className="relative z-10 text-xs leading-relaxed text-neutral-400 sm:text-sm">
+        {feature.copy}
+      </p>
+    </motion.div>
+  )
+}
+
+/* ── Grid principal ───────────────────────────────────────────────────── */
 export default function Features() {
   return (
     <section className="bg-panel px-6 py-24 sm:py-32">
@@ -72,19 +174,7 @@ export default function Features() {
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((f, i) => (
-            <motion.div
-              key={f.key}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.7, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="group rounded-2xl border border-white/10 bg-card p-5 sm:p-7 transition-all duration-300 hover:border-gold-400/30 hover:shadow-[0_0_30px_-6px_rgba(212,168,52,0.15)]"
-            >
-              <div className="mb-4 h-8 w-8 sm:mb-5 sm:h-10 sm:w-10 text-neutral-200 transition-colors duration-300 group-hover:text-gold-400">{f.icon}</div>
-              <h3 className="mb-1.5 text-base font-semibold text-white sm:mb-2 sm:text-lg">{f.title}</h3>
-              <p className="text-xs leading-relaxed text-neutral-400 sm:text-sm">{f.copy}</p>
-            </motion.div>
+            <FeatureCard key={f.key} feature={f} index={i} />
           ))}
         </div>
       </div>

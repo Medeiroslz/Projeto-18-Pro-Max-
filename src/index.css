@@ -42,6 +42,20 @@
   );
 }
 
+/* ── Ícone Instagram animado ────────────────────────────────────────── */
+.instagram-icon {
+  color: #ffffff;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.instagram-icon:hover {
+  color: #d4a834;
+  transform: scale(1.15) rotate(8deg);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
