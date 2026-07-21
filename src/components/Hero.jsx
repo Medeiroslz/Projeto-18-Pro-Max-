@@ -7,7 +7,7 @@ const particles = Array.from({ length: PARTICLE_COUNT }, (_, i) => ({
   id: i,
   x: Math.random() * 100,             // % horizontal
   y: 70 + Math.random() * 30,          // começa entre 70%–100% do topo
-  size: 1.5 + Math.random() * 2,       // 1.5–3.5px
+  size: 3 + Math.random() * 4,         // 3–7px (aumentado)
   duration: 4 + Math.random() * 5,     // 4–9s
   delay: Math.random() * 5,            // 0–5s
 }))

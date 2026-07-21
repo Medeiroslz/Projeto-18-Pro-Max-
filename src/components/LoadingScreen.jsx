@@ -52,19 +52,12 @@ export default function LoadingScreen({ onFinish }) {
             imageRendering: 'pixelated',
           }}
         >
-          {/* Preenchimento com estilo pixelado */}
+          {/* Preenchimento sólido (não zebrado) */}
           <div
             style={{
               width: `${progress}%`,
               height: '100%',
-              background: `repeating-linear-gradient(
-                90deg,
-                #ddd 0px,
-                #ddd 6px,
-                #aaa 6px,
-                #aaa 12px
-              )`,
-              imageRendering: 'pixelated',
+              background: '#ccc',
               transition: 'width 0.12s linear',
             }}
           />
